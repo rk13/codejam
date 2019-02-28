@@ -18,52 +18,7 @@ public class App {
             input[i - 1] = in.nextLine().split(" ");
         }
 
-        //adj = new int[t][t];
-        Map<String, Integer> adj = new HashMap<>();
-
-//        t = 10000;
-
-        for (int i = 0; i < t; i++) {
-            for (int j = i; j < t; j++) {
-                if (i == j) {
-                    //adj[i][j] = 0;
-                } else {
-                    //adj[i][j] = Scoring.score(input[i], input[j]);
-                    int score = Scoring.score(input[i], input[j]);
-                    if (score > 0) {
-                        adj.put(i + "," + j, score);
-                    }
-                }
-//                System.out.print(adj[i][j] + " ");
-            }
-            System.out.println(i);
-        }
-
-        List<Integer> visitedList = new ArrayList<>();
-        Set<Integer> visited = new HashSet<>();
-
-        int current = 0;
-        int maxPos;
-
-        do {
-            maxPos = 0;
-            visitedList.add(current);
-            visited.add(current);
-
-            int max = 0;
-            for (int i = 0; i < t; i++) {
-                if (!visited.contains(i) && adj.getOrDefault(current + "," + i, 0) > max) {
-                    maxPos = i;
-                    max = adj.get(current + "," + i);
-                }
-            }
-            current = maxPos;
-        } while (maxPos > 0);
-
-        int[][] result = new int[visitedList.size()][1];
-        for(int i=0; i<visitedList.size(); i++) {
-            result[i][0] = visitedList.get(i);
-        }
+        
 
         SubmissionWriter.CreateSubmission(result, "/tmp/result.txt");
     }
