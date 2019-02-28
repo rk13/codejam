@@ -3,7 +3,7 @@ import java.io.*;
 
 public class SubmissionWriter {
 
-    static public void CreateSubmission(int[][] inputSlideShow, String fileName)
+    static public  void CreateSubmission(int[][] inputSlideShow, String fileName)
     {
         File file = new File(fileName);
         file.getParentFile();

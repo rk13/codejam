@@ -52,7 +52,13 @@ public class App {
             }
             current = maxPos;
         } while (maxPos > 0);
-        
+
+        int[][] result = new int[visitedList.size()][1];
+        for(int i=0; i<visitedList.size(); i++) {
+            result[i][0] = visitedList.get(i);
+        }
+
+        SubmissionWriter.CreateSubmission(result, "/tmp/result.txt");
     }
 
     public static String process(BigInteger x, BigInteger y) {
