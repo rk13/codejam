@@ -1,5 +1,4 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.math.BigInteger;
 import java.util.*;
 
@@ -9,8 +8,9 @@ public class App {
     static int[][] adj;
 
 
-    public static void main(String[] args) {
-        Scanner in = new Scanner(new BufferedReader(new InputStreamReader(System.in)));
+    public static void main(String[] args) throws FileNotFoundException {
+        File file = new File("/tmp/input.txt");
+        Scanner in = new Scanner(new BufferedReader(new FileReader(file)));
         int t = Integer.valueOf(in.nextLine());
 
         input = new String[t][];
@@ -18,18 +18,25 @@ public class App {
             input[i - 1] = in.nextLine().split(" ");
         }
 
-        adj = new int[t][t];
+        //adj = new int[t][t];
+        Map<String, Integer> adj = new HashMap<>();
+
+//        t = 10000;
 
         for (int i = 0; i < t; i++) {
-            for (int j = 0; j < t; j++) {
+            for (int j = i; j < t; j++) {
                 if (i == j) {
-                    adj[i][j] = 0;
+                    //adj[i][j] = 0;
                 } else {
-                    adj[i][j] = Scoring.score(input[i], input[j]);
+                    //adj[i][j] = Scoring.score(input[i], input[j]);
+                    int score = Scoring.score(input[i], input[j]);
+                    if (score > 0) {
+                        adj.put(i + "," + j, score);
+                    }
                 }
-                System.out.print(adj[i][j] + " ");
+//                System.out.print(adj[i][j] + " ");
             }
-            System.out.println();
+            System.out.println(i);
         }
 
         List<Integer> visitedList = new ArrayList<>();
@@ -45,9 +52,9 @@ public class App {
 
             int max = 0;
             for (int i = 0; i < t; i++) {
-                if (!visited.contains(i) && adj[current][i] > max) {
+                if (!visited.contains(i) && adj.getOrDefault(current + "," + i, 0) > max) {
                     maxPos = i;
-                    max = adj[current][i];
+                    max = adj.get(current + "," + i);
                 }
             }
             current = maxPos;
